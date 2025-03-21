@@ -185,7 +185,3 @@ body {
     color: #777;
     
 }
-div:empty,
-p:empty {
-    display: none;
-}

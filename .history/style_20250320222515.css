@@ -13,8 +13,8 @@ body {
     color: #333;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; 
-    margin: 0; 
+    min-height: 100vh; /* Garante que o body ocupe toda a altura da viewport */
+    margin: 0; /* Remove a margem padrão do body */
 }
 
 .container {
@@ -24,7 +24,6 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
 }
 
 .page-title {
@@ -183,9 +182,4 @@ body {
     margin-top: 30px;
     font-size: 14px;
     color: #777;
-    
-}
-div:empty,
-p:empty {
-    display: none;
 }

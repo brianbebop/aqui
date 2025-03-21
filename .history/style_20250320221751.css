@@ -11,10 +11,6 @@ body {
     padding: 20px;
     background-color: #f4f7f9;
     color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; 
-    margin: 0; 
 }
 
 .container {
@@ -24,7 +20,6 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex-grow: 1;
 }
 
 .page-title {
@@ -176,16 +171,4 @@ body {
 .remover-perfil:hover {
     background-color: #c2185b; /* Cor de fundo mais escura no hover */
 }
-.footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #f0f0f0;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #777;
-    
-}
-div:empty,
-p:empty {
-    display: none;
-}
+]
