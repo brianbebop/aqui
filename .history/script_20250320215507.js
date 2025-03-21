@@ -4,7 +4,6 @@ const calcularButton = document.getElementById('calcular');
 const resultadoDiv = document.getElementById('resultado');
 const resumoBarrasTabela = document.getElementById('resumoBarras').getElementsByTagName('tbody')[0];
 const nomeProjetoInput = document.getElementById('nomeProjeto');
-const exportarCSVButton = document.getElementById('exportarCSV');
 
 let perfis = [];
 let contadorPerfil = 0;
@@ -125,33 +124,4 @@ calcularButton.addEventListener('click', () => {
     calcularOtimizacao();
 });
 
-
-
-exportarCSVButton.addEventListener('click', () => {
-    const nomeProjeto = nomeProjetoInput.value || 'Otimizacao_Corte_Perfis';
-    const nomeArquivo = `${nomeProjeto}.csv`;
-
-    let csvContent = 'Barra,Perfis,Sobra (mm)\r\n'; // Cabeçalho CSV
-    const linhasTabela = resumoBarrasTabela.rows;
-    for (let i = 0; i < linhasTabela.length; i++) {
-        const linha = linhasTabela[i];
-        const colunas = linha.cells;
-        const linhaCSV = `${colunas[0].textContent},"${colunas[1].textContent}",${colunas[2].textContent}\r\n`;
-        csvContent += linhaCSV;
-    }
-
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    if (navigator.msSaveBlob) { // IE 10+
-        navigator.msSaveBlob(blob, nomeArquivo);
-    } else {
-        const url = URL.createObjectURL(blob);
-        link.href = url;
-        link.setAttribute('download', nomeArquivo);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-});
 // ... (código existente para exportar CSV) ...

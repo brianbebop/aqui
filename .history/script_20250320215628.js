@@ -4,7 +4,6 @@ const calcularButton = document.getElementById('calcular');
 const resultadoDiv = document.getElementById('resultado');
 const resumoBarrasTabela = document.getElementById('resumoBarras').getElementsByTagName('tbody')[0];
 const nomeProjetoInput = document.getElementById('nomeProjeto');
-const exportarCSVButton = document.getElementById('exportarCSV');
 
 let perfis = [];
 let contadorPerfil = 0;
