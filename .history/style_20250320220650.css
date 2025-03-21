@@ -1,0 +1,126 @@
+:root {
+    --primary-color: #007bff;
+    --background-color: #f4f4f4;
+    --text-color: #333;
+    --border-color: #ddd;
+}
+/* Estilos gerais */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-title {
+    text-align: center;
+}
+
+.project-info {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.perfis-container {
+    margin-bottom: 20px;
+}
+
+.perfil {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.perfil label {
+    margin-right: 10px;
+}
+
+.perfil input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.btn-calculate {
+    background-color: #007bff;
+    color: white;
+}
+
+.result-container {
+    margin-top: 20px;
+}
+
+.result-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-header,
+.result-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+    .perfil {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .perfil label {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    .table-header,
+    .result-table td {
+        font-size: 14px;
+    }
+}

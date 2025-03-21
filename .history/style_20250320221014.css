@@ -156,18 +156,3 @@ body {
         font-size: 14px;
     }
 }
-
-.remover-perfil {
-    background-color: #e91e63; /* Cor de fundo semelhante ao botão "Calcular" */
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.remover-perfil:hover {
-    background-color: #c2185b; /* Cor de fundo mais escura no hover */
-}
