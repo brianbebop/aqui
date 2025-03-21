@@ -47,6 +47,7 @@ O algoritmo de otimização utiliza uma abordagem de força bruta combinada com 
 Divisão de Perfis Grandes: Perfis com tamanho maior que a barra padrão são divididos em múltiplos segmentos.
 Combinação de Perfis: A função encontrarMelhorCombinacao() explora todas as combinações possíveis de perfis para encontrar a que deixa a menor sobra na barra.
 Estratégia Gulosa: O algoritmo itera sobre os perfis restantes, escolhendo a melhor combinação para cada barra e removendo os perfis utilizados.
+
 7. Como Executar o Projeto
 Clone o repositório para o seu computador.
 Abra o arquivo index.html em um navegador web.
