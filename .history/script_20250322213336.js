@@ -45,43 +45,7 @@ function calcularOtimizacao() {
     }
 
     // Algoritmo de otimização
-    // Algoritmo de otimização
-    const barras = [];
-    let perfisRestantes = [...perfisComTamanho];
-    while (perfisRestantes.length > 0) {
-        const perfilAtual = perfisRestantes[0];
-        if (perfilAtual.tamanho > tamanhoBarra) {
-            // Divide o perfil em múltiplas barras
-            const quantidadeBarras = Math.ceil(perfilAtual.tamanho / tamanhoBarra);
-            for (let i = 0; i < quantidadeBarras; i++) {
-                const tamanhoBarraAtual = Math.min(tamanhoBarra, perfilAtual.tamanho - i * tamanhoBarra);
-                const barraAtual = { perfis: [{ ...perfilAtual, tamanho: tamanhoBarraAtual }], espacoLivre: tamanhoBarra - tamanhoBarraAtual };
-                barras.push(barraAtual);
-
-                // Tenta otimizar o espaço restante na barra atual
-                if (barraAtual.espacoLivre > 0) {
-                    const melhorCombinacao = encontrarMelhorCombinacao(perfisRestantes.filter(p => p !== perfilAtual), barraAtual.espacoLivre);
-                    if (melhorCombinacao.perfis.length > 0) {
-                        barraAtual.perfis = [...barraAtual.perfis, ...melhorCombinacao.perfis];
-                        barraAtual.espacoLivre = melhorCombinacao.sobra;
-
-                        // Remove os perfis utilizados da lista perfisRestantes
-                        melhorCombinacao.perfis.forEach(perfilUsado => {
-                            perfisRestantes = perfisRestantes.filter(perfil => perfil.id !== perfilUsado.id);
-                        });
-                    }
-                }
-            }
-            perfisRestantes.shift(); // Remove o perfil dividido
-        } else {
-            // Encontra a melhor combinação para a barra
-            const melhorCombinacao = encontrarMelhorCombinacao(perfisRestantes, tamanhoBarra);
-            barras.push({ perfis: melhorCombinacao.perfis, espacoLivre: melhorCombinacao.sobra });
-            perfisRestantes = perfisRestantes.filter(
-                perfil => !melhorCombinacao.perfis.includes(perfil)
-            );
-        }
-    }
+    
 
     // Exibe o resultado na tabela
     resumoBarrasTabela.innerHTML = ''; // Limpa a tabela
