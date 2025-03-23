@@ -19,81 +19,57 @@ function calcularOtimizacao() {
         }));
 
     function encontrarMelhorCombinacao(perfisRestantes, espacoLivre) {
-        let melhorCombinacao = { perfis: [], sobra: espacoLivre };
-
-        function combinar(combinacaoAtual, sobraAtual, indiceAtual) {
-            if (sobraAtual < melhorCombinacao.sobra) {
-                melhorCombinacao = { perfis: combinacaoAtual, sobra: sobraAtual };
-            }
-
-            if (indiceAtual < perfisRestantes.length) {
-                const perfilAtual = perfisRestantes[indiceAtual];
-                if (sobraAtual >= perfilAtual.tamanho) {
-                    combinar(
-                        [...combinacaoAtual, perfilAtual],
-                        sobraAtual - perfilAtual.tamanho,
-                        indiceAtual + 1
-                    );
-                }
-                combinar(combinacaoAtual, sobraAtual, indiceAtual + 1);
-            }
-        }
-
-        combinar([], espacoLivre, 0);
-        return melhorCombinacao;
+        // ... (seu código de encontrarMelhorCombinacao) ...
     }
 
     const barras = [];
     let perfisRestantes = [...perfisComTamanho];
 
-    // Processa os perfis
-    while (perfisRestantes.length > 0) {
-        let perfilAtual = perfisRestantes.shift(); // Remove o primeiro perfil da lista
+    // Encontra o perfil maior
+    let perfilMaior = perfisRestantes.reduce((maior, perfil) => {
+        return perfil.tamanho > maior.tamanho ? perfil : maior;
+    }, perfisRestantes[0]);
 
-        if (perfilAtual.tamanho > tamanhoBarra) {
-            // Divide o perfil em múltiplas barras
-            let tamanhoRestante = perfilAtual.tamanho;
-            while (tamanhoRestante > 0) {
-                const tamanhoBarraAtual = Math.min(tamanhoBarra, tamanhoRestante);
-                barras.push({ perfis: [{ ...perfilAtual, tamanho: tamanhoBarraAtual }], espacoLivre: tamanhoBarra - tamanhoBarraAtual });
-                tamanhoRestante -= tamanhoBarraAtual;
-            }
-        } else {
-            // Encontra a melhor combinação para a barra
-            let barraEncontrada = false;
-            for (let i = 0; i < barras.length; i++) {
-                if (barras[i].espacoLivre >= perfilAtual.tamanho) {
-                    barras[i].perfis.push(perfilAtual);
-                    barras[i].espacoLivre -= perfilAtual.tamanho;
-                    barraEncontrada = true;
-                    break;
-                }
-            }
-            if (!barraEncontrada) {
-                barras.push({ perfis: [perfilAtual], espacoLivre: tamanhoBarra - perfilAtual.tamanho });
-            }
+    // Processa o perfil maior primeiro
+    if (perfilMaior.tamanho > tamanhoBarra) {
+        const quantidadeBarras = Math.ceil(perfilMaior.tamanho / tamanhoBarra);
+        let tamanhoRestante = perfilMaior.tamanho;
+        for (let i = 0; i < quantidadeBarras; i++) {
+            const tamanhoBarraAtual = Math.min(tamanhoBarra, tamanhoRestante); // Correção aqui
+            barras.push({ perfis: [{ ...perfilMaior, tamanho: tamanhoBarraAtual }], espacoLivre: tamanhoBarra - tamanhoBarraAtual });
+            tamanhoRestante -= tamanhoBarraAtual;
         }
+    } else {
+        barras.push({ perfis: [perfilMaior], espacoLivre: tamanhoBarra - perfilMaior.tamanho });
     }
+
+    // Remove o perfil maior da lista de perfis restantes
+    perfisRestantes = perfisRestantes.filter(perfil => perfil.id !== perfilMaior.id);
 
     // Otimização iterativa
     let otimizacaoContinua = true;
     while (otimizacaoContinua) {
         otimizacaoContinua = false;
-        for (let i = 0; i < barras.length; i++) {
-            if (barras[i].espacoLivre > 0) {
-                const perfisCabiveis = perfisRestantes.filter(perfil => perfil.tamanho <= barras[i].espacoLivre);
+        barras.forEach(barra => {
+            if (barra.espacoLivre > 0) {
+                const perfisCabiveis = perfisRestantes.filter(perfil => perfil.tamanho <= barra.espacoLivre);
                 if (perfisCabiveis.length > 0) {
-                    const melhorCombinacao = encontrarMelhorCombinacao(perfisCabiveis, barras[i].espacoLivre);
+                    const melhorCombinacao = encontrarMelhorCombinacao(perfisCabiveis, barra.espacoLivre);
                     if (melhorCombinacao.perfis.length > 0) {
-                        barras[i].perfis = [...barras[i].perfis, ...melhorCombinacao.perfis];
-                        barras[i].espacoLivre = melhorCombinacao.sobra;
+                        barra.perfis = [...barra.perfis, ...melhorCombinacao.perfis];
+                        barra.espacoLivre = melhorCombinacao.sobra;
                         perfisRestantes = perfisRestantes.filter(perfil => !melhorCombinacao.perfis.includes(perfil));
                         otimizacaoContinua = true;
                     }
                 }
             }
-        }
+        });
     }
+
+    // Adiciona os perfis restantes a novas barras
+    perfisRestantes.forEach(perfil => {
+        barras.push({ perfis: [perfil], espacoLivre: tamanhoBarra - perfil.tamanho });
+    });
 
     // Exibe o resultado na tabela
     resumoBarrasTabela.innerHTML = '';
